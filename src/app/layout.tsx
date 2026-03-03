@@ -3,6 +3,7 @@ import { DM_Serif_Display, Plus_Jakarta_Sans } from 'next/font/google';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Toaster } from '@/components/ui/sonner';
+import { CartProvider } from '@/context/CartContext';
 import './globals.css';
 
 const dmSerifDisplay = DM_Serif_Display({
@@ -32,11 +33,13 @@ export default function RootLayout({
       <body
         className={`${dmSerifDisplay.variable} ${plusJakartaSans.variable} antialiased`}
       >
-        <div className="flex min-h-screen flex-col">
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
+        <CartProvider>
+          <div className="flex min-h-screen flex-col">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+        </CartProvider>
         <Toaster />
       </body>
     </html>

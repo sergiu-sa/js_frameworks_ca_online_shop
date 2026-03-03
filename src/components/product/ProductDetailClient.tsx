@@ -1,12 +1,14 @@
 'use client';
 
 import Image from 'next/image';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Tag } from '@/components/ui/Tag';
 import { PriceDisplay } from '@/components/product/PriceDisplay';
 import { RatingStars } from '@/components/product/RatingStars';
 import { DiscountBadge } from '@/components/product/DiscountBadge';
 import { ReviewList } from '@/components/product/ReviewList';
+import { useCart } from '@/context/CartContext';
 import type { Product } from '@/types/product';
 
 interface ProductDetailClientProps {
@@ -16,8 +18,18 @@ interface ProductDetailClientProps {
 export default function ProductDetailClient({
   product,
 }: ProductDetailClientProps) {
+  const { addItem, getItemQuantity } = useCart();
+  const quantityInCart = getItemQuantity(product.id);
+
   function handleAddToCart(): void {
-    // Wired in Phase 4 with CartContext
+    addItem({
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      discountedPrice: product.discountedPrice,
+      image: product.image,
+    });
+    toast.success(`${product.title} added to cart`);
   }
 
   return (
@@ -65,13 +77,20 @@ export default function ProductDetailClient({
             </div>
           )}
 
-          <Button
-            onClick={handleAddToCart}
-            size="lg"
-            className="w-full bg-brand text-white hover:bg-brand-hover sm:w-auto"
-          >
-            Add to Cart
-          </Button>
+          <div className="flex flex-col gap-2">
+            <Button
+              onClick={handleAddToCart}
+              size="lg"
+              className="w-full bg-brand text-white hover:bg-brand-hover sm:w-auto"
+            >
+              Add to Cart
+            </Button>
+            {quantityInCart > 0 && (
+              <p className="text-body-sm text-gray-500">
+                {quantityInCart} already in cart
+              </p>
+            )}
+          </div>
         </div>
       </div>
 

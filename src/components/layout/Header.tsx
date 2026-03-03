@@ -11,15 +11,8 @@ import {
   SheetTrigger,
   SheetTitle,
 } from '@/components/ui/sheet';
-import { useSyncExternalStore, useState } from 'react';
-
-const subscribe = () => () => {};
-const getSnapshot = () => true;
-const getServerSnapshot = () => false;
-
-function useMounted(): boolean {
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-}
+import { useState } from 'react';
+import { useCart } from '@/context/CartContext';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -27,12 +20,9 @@ const navLinks = [
 ];
 
 export function Header() {
-  const mounted = useMounted();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-
-  // Placeholder until CartContext is built
-  const cartCount = 0;
+  const { totalItems } = useCart();
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur-sm">
@@ -62,9 +52,9 @@ export function Header() {
           <Button variant="ghost" size="icon" asChild>
             <Link href="/cart" className="relative">
               <ShoppingCart className="size-5" />
-              {mounted && cartCount > 0 && (
+              {totalItems > 0 && (
                 <span className="absolute -right-2 -top-2 flex size-5 items-center justify-center rounded-full bg-brand text-caption font-bold text-white">
-                  {cartCount}
+                  {totalItems}
                 </span>
               )}
               <span className="sr-only">Cart</span>
