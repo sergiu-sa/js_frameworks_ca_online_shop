@@ -1,5 +1,5 @@
 import { getAllProducts } from '@/lib/api';
-import { ProductGrid } from '@/components/product/ProductGrid';
+import { HomepageClient } from '@/components/search/HomepageClient';
 
 export default async function Home() {
   let products = null;
@@ -30,7 +30,7 @@ export default async function Home() {
       <h1 className="mb-8 font-heading text-display text-gray-900">
         Discover Our Products
       </h1>
-      <ProductGrid products={products} />
+      <HomepageClient products={products} />
     </div>
   );
 }
