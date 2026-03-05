@@ -50,9 +50,9 @@ export function ProductDetailClient({
           />
         </div>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 rounded-2xl border border-gray-100 bg-gray-50/50 p-6">
           <div>
-            <h1 className="font-heading text-display text-gray-900">
+            <h1 className="font-heading text-2xl text-gray-900 sm:text-display">
               {product.title}
             </h1>
             <div className="mt-3">
