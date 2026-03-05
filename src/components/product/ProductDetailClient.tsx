@@ -15,7 +15,7 @@ interface ProductDetailClientProps {
   product: Product;
 }
 
-export default function ProductDetailClient({
+export function ProductDetailClient({
   product,
 }: ProductDetailClientProps) {
   const { addItem, getItemQuantity } = useCart();

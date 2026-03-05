@@ -5,6 +5,7 @@ import {
   useContext,
   useReducer,
   useEffect,
+  useCallback,
   useSyncExternalStore,
   type ReactNode,
 } from 'react';
@@ -138,9 +139,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'UPDATE_QUANTITY', payload: { id, quantity } });
   }
 
-  function clearCart(): void {
+  const clearCart = useCallback((): void => {
     dispatch({ type: 'CLEAR_CART' });
-  }
+  }, []);
 
   function getItemQuantity(productId: string): number {
     return state.items.find((item) => item.id === productId)?.quantity ?? 0;

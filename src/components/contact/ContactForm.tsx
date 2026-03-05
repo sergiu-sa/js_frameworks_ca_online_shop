@@ -37,11 +37,13 @@ export function ContactForm() {
           id="fullName"
           type="text"
           placeholder="Your full name"
+          aria-invalid={!!errors.fullName}
+          aria-describedby={errors.fullName ? 'fullName-error' : undefined}
           className={cn(inputStyles, errors.fullName && 'border-error focus:border-error focus:ring-error/20')}
           {...register('fullName')}
         />
         {errors.fullName && (
-          <p className="mt-1 text-body-sm text-error">{errors.fullName.message}</p>
+          <p id="fullName-error" className="mt-1 text-body-sm text-error">{errors.fullName.message}</p>
         )}
       </div>
 
@@ -53,11 +55,13 @@ export function ContactForm() {
           id="subject"
           type="text"
           placeholder="What is this about?"
+          aria-invalid={!!errors.subject}
+          aria-describedby={errors.subject ? 'subject-error' : undefined}
           className={cn(inputStyles, errors.subject && 'border-error focus:border-error focus:ring-error/20')}
           {...register('subject')}
         />
         {errors.subject && (
-          <p className="mt-1 text-body-sm text-error">{errors.subject.message}</p>
+          <p id="subject-error" className="mt-1 text-body-sm text-error">{errors.subject.message}</p>
         )}
       </div>
 
@@ -69,11 +73,13 @@ export function ContactForm() {
           id="email"
           type="email"
           placeholder="your@email.com"
+          aria-invalid={!!errors.email}
+          aria-describedby={errors.email ? 'email-error' : undefined}
           className={cn(inputStyles, errors.email && 'border-error focus:border-error focus:ring-error/20')}
           {...register('email')}
         />
         {errors.email && (
-          <p className="mt-1 text-body-sm text-error">{errors.email.message}</p>
+          <p id="email-error" className="mt-1 text-body-sm text-error">{errors.email.message}</p>
         )}
       </div>
 
@@ -85,11 +91,13 @@ export function ContactForm() {
           id="message"
           rows={6}
           placeholder="Your message..."
+          aria-invalid={!!errors.message}
+          aria-describedby={errors.message ? 'message-error' : undefined}
           className={cn(inputStyles, 'min-h-[150px] resize-y', errors.message && 'border-error focus:border-error focus:ring-error/20')}
           {...register('message')}
         />
         {errors.message && (
-          <p className="mt-1 text-body-sm text-error">{errors.message.message}</p>
+          <p id="message-error" className="mt-1 text-body-sm text-error">{errors.message.message}</p>
         )}
       </div>
 

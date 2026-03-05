@@ -1,18 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
 import Link from 'next/link';
 import { CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useCart } from '@/context/CartContext';
 
 export default function CheckoutSuccessPage() {
-  const { clearCart } = useCart();
-
-  useEffect(() => {
-    clearCart();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
   return (
     <div className="mx-auto flex max-w-lg flex-col items-center px-4 py-24 text-center sm:px-6">
       <CheckCircle className="size-16 text-green-500" />

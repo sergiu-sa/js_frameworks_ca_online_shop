@@ -31,7 +31,7 @@ export function Header() {
           eCom Store
         </Link>
 
-        <nav className="hidden items-center gap-6 md:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-6 md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -57,7 +57,9 @@ export function Header() {
                   {totalItems}
                 </span>
               )}
-              <span className="sr-only">Cart</span>
+              <span className="sr-only">
+                Cart{totalItems > 0 ? `, ${totalItems} item${totalItems !== 1 ? 's' : ''}` : ''}
+              </span>
             </Link>
           </Button>
 
@@ -70,7 +72,7 @@ export function Header() {
             </SheetTrigger>
             <SheetContent side="right">
               <SheetTitle className="sr-only">Navigation</SheetTitle>
-              <nav className="mt-8 flex flex-col gap-4">
+              <nav aria-label="Mobile" className="mt-8 flex flex-col gap-4">
                 {navLinks.map((link) => (
                   <Link
                     key={link.href}

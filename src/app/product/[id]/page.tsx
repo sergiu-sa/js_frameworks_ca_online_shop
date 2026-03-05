@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { getProductById } from '@/lib/api';
-import ProductDetailClient from '@/components/product/ProductDetailClient';
+import { ProductDetailClient } from '@/components/product/ProductDetailClient';
 
 interface ProductPageProps {
   params: Promise<{ id: string }>;

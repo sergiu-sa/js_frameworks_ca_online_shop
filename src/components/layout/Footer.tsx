@@ -8,7 +8,7 @@ export function Footer() {
           <p className="text-body-sm text-gray-500">
             &copy; {new Date().getFullYear()} eCom Store. All rights reserved.
           </p>
-          <nav className="flex gap-6">
+          <nav aria-label="Footer" className="flex gap-6">
             <Link
               href="/"
               className="text-body-sm text-gray-500 transition-colors hover:text-brand"

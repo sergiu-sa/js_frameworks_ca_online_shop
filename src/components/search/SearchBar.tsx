@@ -16,6 +16,7 @@ export function SearchBar({ query, onQueryChange }: SearchBarProps) {
         value={query}
         onChange={(e) => onQueryChange(e.target.value)}
         placeholder="Search products..."
+        aria-label="Search products"
         className="w-full rounded-lg bg-gray-100 py-3 pl-12 pr-4 text-body text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border focus:border-gray-300 focus:bg-white"
       />
     </div>
