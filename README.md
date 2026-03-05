@@ -1,8 +1,10 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Live Demo
+
+[https://js-frameworks-ca-online-shop.vercel.app/](https://js-frameworks-ca-online-shop.vercel.app/)
+
 ## Getting Started
-
-
 
 First, run the development server:
 
