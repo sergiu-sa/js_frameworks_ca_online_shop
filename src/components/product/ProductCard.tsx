@@ -1,4 +1,4 @@
-// ProductCard — clickable card linking to the product detail page.
+// ProductCard 
 
 'use client';
 
@@ -15,9 +15,10 @@ import type { Product } from '@/types/product';
 
 interface ProductCardProps {
   product: Product;
+  priority?: boolean;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, priority }: ProductCardProps) {
   const { addItem } = useCart();
 
   function handleAddToCart(e: React.MouseEvent): void {
@@ -42,6 +43,7 @@ export function ProductCard({ product }: ProductCardProps) {
             alt={product.image.alt || product.title}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
+            priority={priority}
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
           <DiscountBadge
