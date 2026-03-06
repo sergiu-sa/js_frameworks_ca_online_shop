@@ -17,12 +17,12 @@ export function QuantitySelector({
       <Button
         variant="outline"
         size="icon"
-        className="size-8"
+        className="size-9"
         onClick={() => onQuantityChange(quantity - 1)}
         disabled={quantity <= 1}
         aria-label="Decrease quantity"
       >
-        <Minus className="size-3.5" />
+        <Minus className="size-4" />
       </Button>
       <span className="w-10 text-center text-body-sm font-medium">
         {quantity}
@@ -30,11 +30,11 @@ export function QuantitySelector({
       <Button
         variant="outline"
         size="icon"
-        className="size-8"
+        className="size-9"
         onClick={() => onQuantityChange(quantity + 1)}
         aria-label="Increase quantity"
       >
-        <Plus className="size-3.5" />
+        <Plus className="size-4" />
       </Button>
     </div>
   );

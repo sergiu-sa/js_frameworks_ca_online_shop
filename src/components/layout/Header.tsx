@@ -11,7 +11,8 @@ import {
   SheetTrigger,
   SheetTitle,
 } from '@/components/ui/sheet';
-import { useState } from 'react';
+import { CartDrawer } from '@/components/cart/CartDrawer';
+import { useState, useEffect, useRef } from 'react';
 import { useCart } from '@/context/CartContext';
 
 const navLinks = [
@@ -21,8 +22,20 @@ const navLinks = [
 
 export function Header() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
   const { totalItems } = useCart();
+  const [badgePop, setBadgePop] = useState(false);
+  const prevCount = useRef(totalItems);
+
+  useEffect(() => {
+    if (totalItems > prevCount.current) {
+      setBadgePop(true);
+      const timer = setTimeout(() => setBadgePop(false), 300);
+      return () => clearTimeout(timer);
+    }
+    prevCount.current = totalItems;
+  }, [totalItems]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur-sm">
@@ -49,21 +62,29 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" asChild>
-            <Link href="/cart" className="relative">
-              <ShoppingCart className="size-5" />
-              {totalItems > 0 && (
-                <span className="absolute -right-2 -top-2 flex size-5 items-center justify-center rounded-full bg-brand text-caption font-bold text-white">
-                  {totalItems}
-                </span>
-              )}
-              <span className="sr-only">
-                Cart{totalItems > 0 ? `, ${totalItems} item${totalItems !== 1 ? 's' : ''}` : ''}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="relative"
+            onClick={() => setCartOpen(true)}
+          >
+            <ShoppingCart className="size-5" />
+            {totalItems > 0 && (
+              <span
+                className={cn(
+                  'absolute -right-2 -top-2 flex size-5 items-center justify-center rounded-full bg-brand text-caption font-bold text-white',
+                  badgePop && 'animate-badge-pop'
+                )}
+              >
+                {totalItems > 99 ? '99+' : totalItems}
               </span>
-            </Link>
+            )}
+            <span className="sr-only">
+              Cart{totalItems > 0 ? `, ${totalItems} item${totalItems !== 1 ? 's' : ''}` : ''}
+            </span>
           </Button>
 
-          <Sheet open={open} onOpenChange={setOpen}>
+          <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
                 <Menu className="size-5" />
@@ -77,7 +98,7 @@ export function Header() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    onClick={() => setOpen(false)}
+                    onClick={() => setMenuOpen(false)}
                     className={cn(
                       'text-lg font-medium transition-colors hover:text-brand',
                       pathname === link.href
@@ -88,19 +109,23 @@ export function Header() {
                     {link.label}
                   </Link>
                 ))}
-                <Link
-                  href="/cart"
-                  onClick={() => setOpen(false)}
+                <button
+                  onClick={() => {
+                    setMenuOpen(false);
+                    setCartOpen(true);
+                  }}
                   className={cn(
-                    'text-lg font-medium transition-colors hover:text-brand',
+                    'text-left text-lg font-medium transition-colors hover:text-brand',
                     pathname === '/cart' ? 'text-brand' : 'text-foreground'
                   )}
                 >
                   Cart
-                </Link>
+                </button>
               </nav>
             </SheetContent>
           </Sheet>
+
+          <CartDrawer open={cartOpen} onOpenChange={setCartOpen} />
         </div>
       </div>
     </header>

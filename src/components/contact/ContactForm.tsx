@@ -1,16 +1,18 @@
 'use client';
 
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { toast } from 'sonner';
+import { CheckCircle } from 'lucide-react';
 import { contactSchema, type ContactFormData } from '@/types/contact';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
 const inputStyles =
-  'w-full rounded-lg bg-gray-100 border border-gray-200 px-4 py-3 text-body text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-brand focus:ring-2 focus:ring-brand/20';
+  'w-full rounded-lg bg-white border border-gray-200 px-4 py-3 text-body text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-brand focus:ring-2 focus:ring-brand/20';
 
 export function ContactForm() {
+  const [submitted, setSubmitted] = useState(false);
   const {
     register,
     handleSubmit,
@@ -23,8 +25,29 @@ export function ContactForm() {
 
   function onSubmit(data: ContactFormData): void {
     console.log(data);
-    toast.success('Message sent successfully!');
+    setSubmitted(true);
     reset();
+  }
+
+  if (submitted) {
+    return (
+      <div className="flex flex-col items-center gap-4 py-12 text-center">
+        <CheckCircle className="size-12 text-success" />
+        <h3 className="font-heading text-heading-sm text-gray-900">
+          Message Sent!
+        </h3>
+        <p className="text-body-sm text-gray-500">
+          Thank you for reaching out. We&apos;ll get back to you as soon as possible.
+        </p>
+        <Button
+          onClick={() => setSubmitted(false)}
+          variant="outline"
+          className="mt-2"
+        >
+          Send Another Message
+        </Button>
+      </div>
+    );
   }
 
   return (

@@ -57,33 +57,44 @@ export function SearchResults({
           No results found
         </p>
       ) : (
-        <ul>
-          {displayed.map((product) => (
-            <li key={product.id}>
-              <button
-                type="button"
-                onClick={() => onSelect(product.id)}
-                className="flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-gray-50"
-              >
-                <div className="relative size-10 shrink-0 overflow-hidden rounded">
-                  <Image
-                    src={product.image.url}
-                    alt={product.image.alt || product.title}
-                    fill
-                    sizes="40px"
-                    className="object-cover"
-                  />
-                </div>
-                <span className="flex-1 truncate text-body-sm font-medium text-gray-900">
-                  {product.title}
-                </span>
-                <span className="shrink-0 text-body-sm font-semibold text-gray-700">
-                  {formatCurrency(product.discountedPrice)}
-                </span>
-              </button>
-            </li>
-          ))}
-        </ul>
+        <>
+          <ul>
+            {displayed.map((product) => (
+              <li key={product.id}>
+                <button
+                  type="button"
+                  onClick={() => onSelect(product.id)}
+                  className="flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-gray-50"
+                >
+                  <div className="relative size-10 shrink-0 overflow-hidden rounded">
+                    <Image
+                      src={product.image.url}
+                      alt={product.image.alt || product.title}
+                      fill
+                      sizes="40px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <span className="flex-1 truncate text-body-sm font-medium text-gray-900">
+                    {product.title}
+                  </span>
+                  <span className="shrink-0 text-body-sm font-semibold text-gray-700">
+                    {formatCurrency(product.discountedPrice)}
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+          {results.length > 1 && (
+            <button
+              type="button"
+              onClick={onClose}
+              className="w-full border-t border-gray-100 px-4 py-3 text-center text-body-sm font-medium text-brand transition-colors hover:bg-gray-50"
+            >
+              View all {results.length} results
+            </button>
+          )}
+        </>
       )}
     </div>
   );

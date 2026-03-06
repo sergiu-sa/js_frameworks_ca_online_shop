@@ -12,7 +12,7 @@ export function RatingStars({ rating }: RatingStarsProps) {
           key={i}
           aria-hidden="true"
           className={`size-4 ${
-            i < Math.round(rating)
+            i < Math.floor(rating)
               ? 'fill-brand text-brand'
               : 'text-gray-300'
           }`}

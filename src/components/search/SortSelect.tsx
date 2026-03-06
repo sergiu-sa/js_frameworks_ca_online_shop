@@ -24,7 +24,7 @@ export function SortSelect({ value, onChange }: SortSelectProps) {
         value={value}
         onChange={(e) => onChange(e.target.value as SortOption)}
         aria-label="Sort products"
-        className="appearance-none rounded-xl border border-gray-200 bg-white py-3.5 pl-4 pr-10 text-body-sm font-medium text-gray-700 shadow-card outline-none transition-all focus:border-brand focus:shadow-card-hover focus:ring-2 focus:ring-brand/20"
+        className="appearance-none rounded-xl border border-gray-200 bg-white py-2.5 pl-3 pr-9 text-body-sm font-medium text-gray-700 shadow-card outline-none transition-all focus:border-brand focus:shadow-card-hover focus:ring-2 focus:ring-brand/20 sm:py-3.5 sm:pl-4 sm:pr-10 sm:text-body"
       >
         {sortOptions.map((option) => (
           <option key={option.value} value={option.value}>

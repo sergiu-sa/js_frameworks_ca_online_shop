@@ -1,7 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { Minus, Plus } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Tag } from '@/components/ui/Tag';
@@ -18,18 +20,30 @@ interface ProductDetailClientProps {
 
 export function ProductDetailClient({ product }: ProductDetailClientProps) {
   const router = useRouter();
-  const { addItem, getItemQuantity } = useCart();
+  const { addItem, updateQuantity, getItemQuantity } = useCart();
   const quantityInCart = getItemQuantity(product.id);
+  const [quantity, setQuantity] = useState(1);
 
   function handleAddToCart(): void {
-    addItem({
-      id: product.id,
-      title: product.title,
-      price: product.price,
-      discountedPrice: product.discountedPrice,
-      image: product.image,
-    });
-    toast.success(`${product.title} added to cart`);
+    const currentInCart = getItemQuantity(product.id);
+    if (currentInCart === 0) {
+      addItem({
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        discountedPrice: product.discountedPrice,
+        image: product.image,
+      });
+      if (quantity > 1) {
+        updateQuantity(product.id, quantity);
+      }
+    } else {
+      updateQuantity(product.id, currentInCart + quantity);
+    }
+    toast.success(
+      `${quantity} ${quantity === 1 ? 'item' : 'items'} added to cart`
+    );
+    setQuantity(1);
   }
 
   return (
@@ -77,19 +91,45 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
             </div>
           )}
 
-          <div className="flex flex-col gap-2">
-            <Button
-              onClick={handleAddToCart}
-              size="lg"
-              className="w-full bg-brand text-white hover:bg-brand-hover sm:w-auto"
-            >
-              Add to Cart
-            </Button>
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="size-10"
+                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                  disabled={quantity <= 1}
+                  aria-label="Decrease quantity"
+                >
+                  <Minus className="size-4" />
+                </Button>
+                <span className="w-12 text-center text-body font-medium">
+                  {quantity}
+                </span>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="size-10"
+                  onClick={() => setQuantity((q) => q + 1)}
+                  aria-label="Increase quantity"
+                >
+                  <Plus className="size-4" />
+                </Button>
+              </div>
+              <Button
+                onClick={handleAddToCart}
+                size="lg"
+                className="flex-1 bg-brand text-white hover:bg-brand-hover"
+              >
+                Add to Cart
+              </Button>
+            </div>
             <Button
               type="button"
               variant="outline"
               size="lg"
-              className="w-full sm:w-auto"
+              className="w-full"
               onClick={() => router.push('/')}
             >
               Back to Products
