@@ -30,7 +30,10 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-6">
       <div>
-        <label htmlFor="fullName" className="mb-1 block text-body-sm font-medium text-gray-700">
+        <label
+          htmlFor="fullName"
+          className="mb-1 block text-body-sm font-medium text-gray-700"
+        >
           Full Name
         </label>
         <input
@@ -38,17 +41,26 @@ export function ContactForm() {
           type="text"
           placeholder="Your full name"
           aria-invalid={!!errors.fullName}
-          aria-describedby={errors.fullName ? 'fullName-error' : undefined}
-          className={cn(inputStyles, errors.fullName && 'border-error focus:border-error focus:ring-error/20')}
+          {...(errors.fullName && { 'aria-describedby': 'fullName-error' })}
+          className={cn(
+            inputStyles,
+            errors.fullName &&
+              'border-error focus:border-error focus:ring-error/20'
+          )}
           {...register('fullName')}
         />
         {errors.fullName && (
-          <p id="fullName-error" className="mt-1 text-body-sm text-error">{errors.fullName.message}</p>
+          <p id="fullName-error" className="mt-1 text-body-sm text-error">
+            {errors.fullName.message}
+          </p>
         )}
       </div>
 
       <div>
-        <label htmlFor="subject" className="mb-1 block text-body-sm font-medium text-gray-700">
+        <label
+          htmlFor="subject"
+          className="mb-1 block text-body-sm font-medium text-gray-700"
+        >
           Subject
         </label>
         <input
@@ -56,17 +68,26 @@ export function ContactForm() {
           type="text"
           placeholder="What is this about?"
           aria-invalid={!!errors.subject}
-          aria-describedby={errors.subject ? 'subject-error' : undefined}
-          className={cn(inputStyles, errors.subject && 'border-error focus:border-error focus:ring-error/20')}
+          {...(errors.subject && { 'aria-describedby': 'subject-error' })}
+          className={cn(
+            inputStyles,
+            errors.subject &&
+              'border-error focus:border-error focus:ring-error/20'
+          )}
           {...register('subject')}
         />
         {errors.subject && (
-          <p id="subject-error" className="mt-1 text-body-sm text-error">{errors.subject.message}</p>
+          <p id="subject-error" className="mt-1 text-body-sm text-error">
+            {errors.subject.message}
+          </p>
         )}
       </div>
 
       <div>
-        <label htmlFor="email" className="mb-1 block text-body-sm font-medium text-gray-700">
+        <label
+          htmlFor="email"
+          className="mb-1 block text-body-sm font-medium text-gray-700"
+        >
           Email
         </label>
         <input
@@ -74,17 +95,26 @@ export function ContactForm() {
           type="email"
           placeholder="your@email.com"
           aria-invalid={!!errors.email}
-          aria-describedby={errors.email ? 'email-error' : undefined}
-          className={cn(inputStyles, errors.email && 'border-error focus:border-error focus:ring-error/20')}
+          {...(errors.email && { 'aria-describedby': 'email-error' })}
+          className={cn(
+            inputStyles,
+            errors.email &&
+              'border-error focus:border-error focus:ring-error/20'
+          )}
           {...register('email')}
         />
         {errors.email && (
-          <p id="email-error" className="mt-1 text-body-sm text-error">{errors.email.message}</p>
+          <p id="email-error" className="mt-1 text-body-sm text-error">
+            {errors.email.message}
+          </p>
         )}
       </div>
 
       <div>
-        <label htmlFor="message" className="mb-1 block text-body-sm font-medium text-gray-700">
+        <label
+          htmlFor="message"
+          className="mb-1 block text-body-sm font-medium text-gray-700"
+        >
           Message
         </label>
         <textarea
@@ -92,12 +122,19 @@ export function ContactForm() {
           rows={6}
           placeholder="Your message..."
           aria-invalid={!!errors.message}
-          aria-describedby={errors.message ? 'message-error' : undefined}
-          className={cn(inputStyles, 'min-h-[150px] resize-y', errors.message && 'border-error focus:border-error focus:ring-error/20')}
+          {...(errors.message && { 'aria-describedby': 'message-error' })}
+          className={cn(
+            inputStyles,
+            'min-h-37.5 resize-y',
+            errors.message &&
+              'border-error focus:border-error focus:ring-error/20'
+          )}
           {...register('message')}
         />
         {errors.message && (
-          <p id="message-error" className="mt-1 text-body-sm text-error">{errors.message.message}</p>
+          <p id="message-error" className="mt-1 text-body-sm text-error">
+            {errors.message.message}
+          </p>
         )}
       </div>
 

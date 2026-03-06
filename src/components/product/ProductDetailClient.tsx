@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Tag } from '@/components/ui/Tag';
@@ -15,9 +16,8 @@ interface ProductDetailClientProps {
   product: Product;
 }
 
-export function ProductDetailClient({
-  product,
-}: ProductDetailClientProps) {
+export function ProductDetailClient({ product }: ProductDetailClientProps) {
+  const router = useRouter();
   const { addItem, getItemQuantity } = useCart();
   const quantityInCart = getItemQuantity(product.id);
 
@@ -84,6 +84,15 @@ export function ProductDetailClient({
               className="w-full bg-brand text-white hover:bg-brand-hover sm:w-auto"
             >
               Add to Cart
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="lg"
+              className="w-full sm:w-auto"
+              onClick={() => router.push('/')}
+            >
+              Back to Products
             </Button>
             {quantityInCart > 0 && (
               <p className="text-body-sm text-gray-500">
