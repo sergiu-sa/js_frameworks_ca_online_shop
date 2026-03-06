@@ -11,6 +11,7 @@ import {
   SheetHeader,
   SheetFooter,
   SheetTitle,
+  SheetDescription,
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { QuantitySelector } from '@/components/cart/QuantitySelector';
@@ -46,6 +47,7 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
             <ShoppingCart className="size-5" />
             Cart ({totalItems})
           </SheetTitle>
+          <SheetDescription className="sr-only">Your shopping cart items</SheetDescription>
         </SheetHeader>
 
         {items.length === 0 ? (

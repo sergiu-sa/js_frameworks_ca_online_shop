@@ -12,6 +12,7 @@ import {
   SheetContent,
   SheetTrigger,
   SheetTitle,
+  SheetDescription,
 } from '@/components/ui/sheet';
 import { CartDrawer } from '@/components/cart/CartDrawer';
 import { useState } from 'react';
@@ -82,7 +83,8 @@ export function Header() {
             </SheetTrigger>
             <SheetContent side="right">
               <SheetTitle className="sr-only">Navigation</SheetTitle>
-              <nav aria-label="Mobile" className="mt-8 flex flex-col gap-4">
+              <SheetDescription className="sr-only">Site navigation links</SheetDescription>
+              <nav aria-label="Mobile" className="mt-8 flex flex-col gap-4 px-4">
                 {navLinks.map((link) => (
                   <Link
                     key={link.href}
