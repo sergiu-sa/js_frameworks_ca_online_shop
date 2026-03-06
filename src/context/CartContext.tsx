@@ -13,6 +13,7 @@ import type { CartItem, CartState, CartAction } from '@/types/cart';
 
 const STORAGE_KEY = 'ecom-cart';
 
+// --- SSR hydration guard ---
 const subscribe = () => () => {};
 const getSnapshot = () => true;
 const getServerSnapshot = () => false;
@@ -21,6 +22,7 @@ function useMounted(): boolean {
   return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
 
+// --- Cart reducer ---
 function cartReducer(state: CartState, action: CartAction): CartState {
   switch (action.type) {
     case 'ADD_ITEM': {
@@ -148,6 +150,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }
 
   return (
+    /* Return empty values until client-side hydration completes to avoid SSR mismatch */
     <CartContext.Provider
       value={{
         items: mounted ? state.items : [],

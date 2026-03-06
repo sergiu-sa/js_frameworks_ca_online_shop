@@ -1,3 +1,5 @@
+/** Product sort dropdown */
+
 'use client';
 
 import { ChevronDown } from 'lucide-react';

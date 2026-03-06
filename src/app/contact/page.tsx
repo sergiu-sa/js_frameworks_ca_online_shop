@@ -1,3 +1,5 @@
+// Contact page
+
 import type { Metadata } from 'next';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { ContactForm } from '@/components/contact/ContactForm';

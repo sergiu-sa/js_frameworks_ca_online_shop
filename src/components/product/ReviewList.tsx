@@ -1,3 +1,5 @@
+/** Renders a list of review cards, or an empty state when there are no reviews. */
+
 import { ReviewCard } from '@/components/product/ReviewCard';
 import { EmptyState } from '@/components/ui/EmptyState';
 import type { Review } from '@/types/product';

@@ -1,3 +1,5 @@
+// Displays a 5-star rating with filled/empty stars and a numeric label.
+
 import { Star } from 'lucide-react';
 
 interface RatingStarsProps {

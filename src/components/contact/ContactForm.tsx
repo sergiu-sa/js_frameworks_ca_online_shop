@@ -1,3 +1,4 @@
+// ContactForm — Zod-validated form 
 'use client';
 
 import { useState } from 'react';
@@ -6,10 +7,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { CheckCircle } from 'lucide-react';
 import { contactSchema, type ContactFormData } from '@/types/contact';
 import { cn } from '@/lib/utils';
+import { INPUT_STYLES } from '@/lib/constants';
 import { Button } from '@/components/ui/button';
-
-const inputStyles =
-  'w-full rounded-lg bg-white border border-gray-200 px-4 py-3 text-body text-gray-900 outline-none transition-colors placeholder:text-gray-400 focus:border-brand focus:ring-2 focus:ring-brand/20';
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -23,8 +22,7 @@ export function ContactForm() {
     mode: 'onBlur',
   });
 
-  function onSubmit(data: ContactFormData): void {
-    console.log(data);
+  function onSubmit(): void {
     setSubmitted(true);
     reset();
   }
@@ -66,7 +64,7 @@ export function ContactForm() {
           aria-invalid={!!errors.fullName}
           {...(errors.fullName && { 'aria-describedby': 'fullName-error' })}
           className={cn(
-            inputStyles,
+            INPUT_STYLES,
             errors.fullName &&
               'border-error focus:border-error focus:ring-error/20'
           )}
@@ -93,7 +91,7 @@ export function ContactForm() {
           aria-invalid={!!errors.subject}
           {...(errors.subject && { 'aria-describedby': 'subject-error' })}
           className={cn(
-            inputStyles,
+            INPUT_STYLES,
             errors.subject &&
               'border-error focus:border-error focus:ring-error/20'
           )}
@@ -120,7 +118,7 @@ export function ContactForm() {
           aria-invalid={!!errors.email}
           {...(errors.email && { 'aria-describedby': 'email-error' })}
           className={cn(
-            inputStyles,
+            INPUT_STYLES,
             errors.email &&
               'border-error focus:border-error focus:ring-error/20'
           )}
@@ -147,7 +145,7 @@ export function ContactForm() {
           aria-invalid={!!errors.message}
           {...(errors.message && { 'aria-describedby': 'message-error' })}
           className={cn(
-            inputStyles,
+            INPUT_STYLES,
             'min-h-37.5 resize-y',
             errors.message &&
               'border-error focus:border-error focus:ring-error/20'

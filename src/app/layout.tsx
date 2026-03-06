@@ -1,3 +1,5 @@
+// Root layout that wraps every page with fonts, cart provider, header/footer shell, and toast notifications.
+
 import type { Metadata } from 'next';
 import { DM_Serif_Display, Plus_Jakarta_Sans } from 'next/font/google';
 import { Header } from '@/components/layout/Header';

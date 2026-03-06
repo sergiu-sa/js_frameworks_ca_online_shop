@@ -1,3 +1,5 @@
+/** Search dropdown   */
+
 'use client';
 
 import { useEffect, useRef } from 'react';
@@ -9,6 +11,7 @@ interface SearchResultsProps {
   results: Product[];
   query: string;
   onSelect: (id: string) => void;
+  onViewAll: () => void;
   visible: boolean;
   onClose: () => void;
 }
@@ -17,6 +20,7 @@ export function SearchResults({
   results,
   query,
   onSelect,
+  onViewAll,
   visible,
   onClose,
 }: SearchResultsProps) {
@@ -43,9 +47,9 @@ export function SearchResults({
     };
   }, [visible, onClose]);
 
-  if (!visible || query.length < 2) return null;
+  if (!visible || query.length < 1) return null;
 
-  const displayed = results.slice(0, 6);
+  const displayed = results.slice(0, 4);
 
   return (
     <div
@@ -85,10 +89,10 @@ export function SearchResults({
               </li>
             ))}
           </ul>
-          {results.length > 1 && (
+          {results.length > displayed.length && (
             <button
               type="button"
-              onClick={onClose}
+              onClick={onViewAll}
               className="w-full border-t border-gray-100 px-4 py-3 text-center text-body-sm font-medium text-brand transition-colors hover:bg-gray-50"
             >
               View all {results.length} results

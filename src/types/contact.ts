@@ -1,3 +1,7 @@
+/**
+ * Contact form validation schema and inferred TypeScript type.
+ */
+
 import { z } from 'zod';
 
 export const contactSchema = z.object({

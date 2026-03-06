@@ -1,3 +1,9 @@
+/**
+ * Cart state types
+ * CartItem holds product snapshot data needed for display and price calculation.
+ * CartAction is a discriminated union of all reducer action types.
+ */
+
 export interface CartItem {
   id: string;
   title: string;

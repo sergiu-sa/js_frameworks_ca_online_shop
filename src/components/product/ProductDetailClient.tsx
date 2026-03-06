@@ -18,6 +18,8 @@ interface ProductDetailClientProps {
   product: Product;
 }
 
+
+// Handles both adding new items and increasing quantity for existing cart items.
 export function ProductDetailClient({ product }: ProductDetailClientProps) {
   const router = useRouter();
   const { addItem, updateQuantity, getItemQuantity } = useCart();

@@ -1,3 +1,4 @@
+// API client functions for fetching product data from Noroff Online Shop API
 import { API_BASE_URL } from './constants';
 import type { Product, ApiResponse } from '@/types/product';
 

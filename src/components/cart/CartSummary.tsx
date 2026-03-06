@@ -1,18 +1,14 @@
+// Order summary sidebar on the cart page
+
 'use client';
 
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/context/CartContext';
 import { formatCurrency } from '@/lib/utils';
 
 export function CartSummary() {
-  const router = useRouter();
-  const { totalItems, totalPrice, clearCart } = useCart();
-
-  function handleCheckout(): void {
-    clearCart();
-    router.push('/checkout-success');
-  }
+  const { totalItems, totalPrice } = useCart();
 
   return (
     <div className="rounded-2xl border border-gray-100 bg-gray-50/50 p-6">
@@ -32,11 +28,11 @@ export function CartSummary() {
         </div>
       </div>
       <Button
-        onClick={handleCheckout}
+        asChild
         size="lg"
         className="mt-6 w-full bg-brand text-white hover:bg-brand-hover"
       >
-        Checkout
+        <Link href="/checkout">Proceed to Checkout</Link>
       </Button>
     </div>
   );

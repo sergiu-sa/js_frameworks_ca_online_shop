@@ -22,9 +22,10 @@ interface CartDrawerProps {
   onOpenChange: (open: boolean) => void;
 }
 
+// Slide-out cart panel triggered from the header.
 export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
   const router = useRouter();
-  const { items, removeItem, updateQuantity, totalItems, totalPrice, clearCart } =
+  const { items, removeItem, updateQuantity, totalItems, totalPrice } =
     useCart();
 
   function handleRemove(id: string, title: string): void {
@@ -33,9 +34,8 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
   }
 
   function handleCheckout(): void {
-    clearCart();
     onOpenChange(false);
-    router.push('/checkout-success');
+    router.push('/checkout');
   }
 
   return (

@@ -1,3 +1,5 @@
+// Site header — sticky nav bar with logo, desktop nav links, cart button and a mobile hamburger menu.
+
 'use client';
 
 import Link from 'next/link';
@@ -12,7 +14,7 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet';
 import { CartDrawer } from '@/components/cart/CartDrawer';
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { useCart } from '@/context/CartContext';
 
 const navLinks = [
@@ -25,17 +27,6 @@ export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const { totalItems } = useCart();
-  const [badgePop, setBadgePop] = useState(false);
-  const prevCount = useRef(totalItems);
-
-  useEffect(() => {
-    if (totalItems > prevCount.current) {
-      setBadgePop(true);
-      const timer = setTimeout(() => setBadgePop(false), 300);
-      return () => clearTimeout(timer);
-    }
-    prevCount.current = totalItems;
-  }, [totalItems]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur-sm">
@@ -71,10 +62,8 @@ export function Header() {
             <ShoppingCart className="size-5" />
             {totalItems > 0 && (
               <span
-                className={cn(
-                  'absolute -right-2 -top-2 flex size-5 items-center justify-center rounded-full bg-brand text-caption font-bold text-white',
-                  badgePop && 'animate-badge-pop'
-                )}
+                key={totalItems}
+                className="absolute -right-2 -top-2 flex size-5 items-center justify-center rounded-full bg-brand text-caption font-bold text-white animate-badge-pop"
               >
                 {totalItems > 99 ? '99+' : totalItems}
               </span>

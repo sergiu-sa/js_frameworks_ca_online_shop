@@ -1,3 +1,5 @@
+// Product detail loading skeleton
+
 import { Skeleton } from '@/components/ui/Skeleton';
 
 export default function ProductDetailLoading() {

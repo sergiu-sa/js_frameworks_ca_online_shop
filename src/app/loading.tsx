@@ -1,3 +1,5 @@
+// Homepage loading skeleton 
+
 import { Skeleton } from '@/components/ui/Skeleton';
 
 export default function HomeLoading() {

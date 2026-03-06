@@ -1,3 +1,5 @@
+/** Controlled search input */
+
 'use client';
 
 import { Search } from 'lucide-react';

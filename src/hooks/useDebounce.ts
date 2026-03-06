@@ -1,3 +1,5 @@
+/** Generic debounce hook — delays updating the returned value until after `delay` ms of inactivity. */
+
 import { useState, useEffect } from 'react';
 
 export function useDebounce<T>(value: T, delay = 300): T {

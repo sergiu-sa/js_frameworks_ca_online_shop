@@ -1,3 +1,5 @@
+// Absolute-positioned badge showing the discount percentage. Hidden when there's no discount.
+
 import { calculateDiscountPercent } from '@/lib/utils';
 
 interface DiscountBadgeProps {

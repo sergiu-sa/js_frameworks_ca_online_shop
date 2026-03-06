@@ -1,3 +1,5 @@
+//  Product detail error boundary
+
 'use client';
 
 import Link from 'next/link';

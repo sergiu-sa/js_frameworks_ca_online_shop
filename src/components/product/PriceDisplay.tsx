@@ -1,3 +1,5 @@
+// Renders the product price — shows discounted + original price 
+
 import { formatCurrency, hasDiscount } from '@/lib/utils';
 
 interface PriceDisplayProps {

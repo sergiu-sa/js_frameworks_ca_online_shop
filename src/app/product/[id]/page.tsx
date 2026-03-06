@@ -1,3 +1,5 @@
+// Product detail page — server component that fetches a single product by ID
+
 import type { Metadata } from 'next';
 import { getProductById } from '@/lib/api';
 import { ProductDetailClient } from '@/components/product/ProductDetailClient';

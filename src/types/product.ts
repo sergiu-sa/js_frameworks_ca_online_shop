@@ -1,3 +1,5 @@
+// --- Product data model ---
+
 export interface ProductImage {
   url: string;
   alt: string;

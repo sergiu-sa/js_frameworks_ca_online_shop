@@ -1,3 +1,5 @@
+/** Tag used to display product categories/tags. */
+
 interface TagProps {
   children: React.ReactNode;
 }

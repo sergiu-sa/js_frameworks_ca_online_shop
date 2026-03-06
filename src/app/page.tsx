@@ -1,3 +1,5 @@
+// Homepage 
+
 import { getAllProducts } from '@/lib/api';
 import { HomepageClient } from '@/components/search/HomepageClient';
 

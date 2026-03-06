@@ -1,3 +1,5 @@
+/** Reusable empty state */
+
 interface EmptyStateProps {
   title: string;
   description: string;

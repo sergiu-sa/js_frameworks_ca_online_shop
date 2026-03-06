@@ -1,3 +1,5 @@
+// Responsive product grid — 2 cols on mobile, scaling up to 4 cols on desktop.
+
 import { ProductCard } from '@/components/product/ProductCard';
 import type { Product } from '@/types/product';
 

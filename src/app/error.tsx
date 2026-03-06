@@ -1,3 +1,5 @@
+// Homepage error boundary that is shown when the product fetch fails.
+
 'use client';
 
 import { Button } from '@/components/ui/button';

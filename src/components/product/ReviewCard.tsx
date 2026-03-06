@@ -1,3 +1,5 @@
+/** Single review card showing username, star rating, and review text. */
+
 import { RatingStars } from '@/components/product/RatingStars';
 import type { Review } from '@/types/product';
 

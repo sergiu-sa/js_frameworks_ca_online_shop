@@ -1,3 +1,5 @@
+// Site footer 
+
 import Link from 'next/link';
 import { Mail, MapPin } from 'lucide-react';
 

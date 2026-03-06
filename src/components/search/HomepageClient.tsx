@@ -1,8 +1,7 @@
 'use client';
 
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { useDebounce } from '@/hooks/useDebounce';
 import { useSearch } from '@/hooks/useSearch';
 import { SearchBar } from '@/components/search/SearchBar';
 import { SearchResults } from '@/components/search/SearchResults';
@@ -12,6 +11,7 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { Button } from '@/components/ui/button';
 import type { Product } from '@/types/product';
 
+// Sort products by the selected option
 function sortProducts(products: Product[], sort: SortOption): Product[] {
   if (sort === 'default') return products;
 
@@ -35,36 +35,43 @@ interface HomepageClientProps {
   products: Product[];
 }
 
+// Orchestrates search, sort, and product display on the homepage.
 export function HomepageClient({ products }: HomepageClientProps) {
   const router = useRouter();
   const [query, setQuery] = useState('');
   const [sort, setSort] = useState<SortOption>('default');
-  const [showResults, setShowResults] = useState(false);
-  const debouncedQuery = useDebounce(query, 300);
-  const results = useSearch(products, debouncedQuery);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
-  const isSearching = debouncedQuery.length >= 2;
+  const results = useSearch(products, query);
+  const isSearching = query.length >= 1;
   const filtered = isSearching ? results : products;
   const displayedProducts = useMemo(() => sortProducts(filtered, sort), [filtered, sort]);
 
   function handleQueryChange(value: string): void {
     setQuery(value);
-    setShowResults(value.length >= 2);
+    setShowDropdown(value.length >= 1);
   }
 
   function handleSelect(id: string): void {
-    setShowResults(false);
+    setShowDropdown(false);
     setQuery('');
     router.push(`/product/${id}`);
   }
 
   function handleClearSearch(): void {
     setQuery('');
-    setShowResults(false);
+    setShowDropdown(false);
   }
 
-  const handleClose = useCallback(() => {
-    setShowResults(false);
+  const handleCloseDropdown = useCallback(() => {
+    setShowDropdown(false);
+  }, []);
+
+  // "View all" closes the dropdown and scrolls to the results grid
+  const handleViewAll = useCallback(() => {
+    setShowDropdown(false);
+    resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, []);
 
   return (
@@ -75,10 +82,11 @@ export function HomepageClient({ products }: HomepageClientProps) {
             <SearchBar query={query} onQueryChange={handleQueryChange} />
             <SearchResults
               results={results}
-              query={debouncedQuery}
+              query={query}
               onSelect={handleSelect}
-              visible={showResults}
-              onClose={handleClose}
+              onViewAll={handleViewAll}
+              visible={showDropdown}
+              onClose={handleCloseDropdown}
             />
           </div>
           <SortSelect value={sort} onChange={setSort} />
@@ -86,10 +94,10 @@ export function HomepageClient({ products }: HomepageClientProps) {
       </div>
 
       {isSearching && (
-        <div className="mb-4 flex items-center justify-between">
+        <div ref={resultsRef} className="mb-4 flex items-center justify-between">
           <p className="text-body-sm text-gray-500">
             {results.length} {results.length === 1 ? 'result' : 'results'} for
-            &ldquo;{debouncedQuery}&rdquo;
+            &ldquo;{query}&rdquo;
           </p>
           <Button
             variant="ghost"
@@ -106,7 +114,7 @@ export function HomepageClient({ products }: HomepageClientProps) {
         {isSearching && displayedProducts.length === 0 ? (
           <EmptyState
             title="No products found"
-            description={`We couldn\u2019t find any products matching \u201c${debouncedQuery}\u201d. Try a different search term.`}
+            description={`We couldn\u2019t find any products matching \u201c${query}\u201d. Try a different search term.`}
             action={
               <Button
                 onClick={handleClearSearch}

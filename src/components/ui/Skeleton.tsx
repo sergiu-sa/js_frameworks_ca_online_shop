@@ -1,3 +1,5 @@
+/** Animated placeholder block used in loading skeletons */
+
 import { cn } from '@/lib/utils';
 
 interface SkeletonProps {

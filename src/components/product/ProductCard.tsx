@@ -1,3 +1,5 @@
+// ProductCard — clickable card linking to the product detail page.
+
 'use client';
 
 import Link from 'next/link';
