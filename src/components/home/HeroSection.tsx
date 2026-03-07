@@ -29,8 +29,8 @@ export function HeroSection({ products }: HeroSectionProps) {
 
         {/* Tagline + CTA on same line */}
         <div className="animate-hero-fade-in mt-5 flex items-center justify-between gap-4 sm:mt-6 [animation-delay:140ms]">
-          <p className="text-body-sm text-gray-400">
-            Feel confident in every layer that styles and simplifies your life.
+          <p className="text-body-md text-gray-600">
+            The toolkit for your life. From the gear you carry to the clothes you wear.
           </p>
           <Button
             asChild
@@ -49,42 +49,40 @@ export function HeroSection({ products }: HeroSectionProps) {
 
         {/* Gradient panel with product cards overlaid */}
         <div className="animate-hero-fade-in relative mt-5 aspect-[2.4/1] w-full overflow-hidden sm:mt-6 [animation-delay:200ms]">
-          {/* Gradient layers */}
-          <div className="absolute inset-0 bg-linear-to-br from-amber-300 via-orange-400 to-orange-500" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_25%_35%,rgba(255,230,170,0.65),transparent)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_75%_65%,rgba(234,88,12,0.3),transparent)]" />
-          <div className="absolute inset-0 bg-[conic-gradient(from_160deg_at_40%_40%,rgba(255,255,255,0.18)_0deg,transparent_55deg,rgba(255,200,120,0.22)_115deg,transparent_175deg,rgba(255,255,255,0.1)_235deg,transparent_290deg,rgba(251,191,36,0.15)_360deg)]" />
-          <div className="absolute -bottom-1/4 -right-1/6 h-2/3 w-2/3 rounded-full bg-linear-to-tl from-amber-200/50 to-transparent blur-3xl" />
-          <div className="absolute -left-1/6 -top-1/4 h-1/2 w-1/2 rounded-full bg-linear-to-br from-orange-300/40 to-transparent blur-3xl" />
-          {/* Grain texture overlay */}
-          <div className="absolute inset-0 opacity-[0.12] mix-blend-overlay [background-image:url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E')] bg-size-[128px_128px]" />
-          {/* Inner glow vignette */}
-          <div className="absolute inset-0 shadow-[inset_0_0_60px_rgba(255,255,255,0.25),inset_0_0_120px_rgba(255,200,120,0.1)]" />
+          {/* Hero image */}
+          <Image
+            src="/hero.png"
+            alt="Flowing orange fabric"
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 1280px"
+            className="object-cover"
+          />
 
-          {/* Mini product cards — bottom-right, matching the reference */}
+          {/* Mini product cards */}
           {topRated.length > 0 && (
-            <div className="absolute bottom-3 right-3 flex items-end gap-2 sm:bottom-5 sm:right-5 sm:gap-3 lg:bottom-6 lg:right-6 lg:gap-3.5">
+            <div className="absolute bottom-3 right-3 flex items-end gap-2.5 sm:bottom-5 sm:right-5 sm:gap-3.5 lg:bottom-6 lg:right-6 lg:gap-4">
               {topRated.map((product, i) => (
                 <Link
                   key={product.id}
                   href={`/product/${product.id}`}
-                  className="animate-hero-fade-in group block w-17 overflow-hidden bg-white/95 shadow-md ring-1 ring-black/4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:w-25 lg:w-31.25"
+                  className="animate-hero-fade-in group block w-20 overflow-hidden rounded-md border-2 border-brand bg-white shadow-lg shadow-black/15 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-black/20 sm:w-28 lg:w-35"
                   style={{ animationDelay: `${350 + i * 80}ms` }}
                 >
-                  <div className="relative aspect-square bg-white p-1.5 sm:p-2">
+                  <div className="relative aspect-square bg-[#faf8f5] p-2 sm:p-2.5">
                     <Image
                       src={product.image.url}
                       alt={product.image.alt || product.title}
                       fill
-                      sizes="(max-width: 640px) 68px, 125px"
-                      className="object-contain p-0.5 transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 640px) 80px, 140px"
+                      className="object-contain p-1 transition-transform duration-300 group-hover:scale-105"
                     />
                   </div>
-                  <div className="border-t border-gray-100/80 px-1.5 py-1 sm:px-2.5 sm:py-1.5">
-                    <p className="truncate text-[7px] font-medium text-gray-700 sm:text-[10px] lg:text-[11px]">
+                  <div className="bg-white px-2 py-1.5 sm:px-3 sm:py-2">
+                    <p className="truncate text-[8px] font-medium text-gray-800 sm:text-[11px] lg:text-xs">
                       {product.title}
                     </p>
-                    <p className="mt-px text-[7px] font-semibold text-brand sm:text-[10px] lg:text-[11px]">
+                    <p className="mt-0.5 text-[8px] font-semibold text-brand sm:text-[11px] lg:text-xs">
                       ${product.discountedPrice.toFixed(2)}
                     </p>
                   </div>
