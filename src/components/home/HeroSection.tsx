@@ -16,20 +16,20 @@ export function HeroSection({ products }: HeroSectionProps) {
 
   return (
     <section className="relative overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 pb-10 pt-8 sm:px-6 sm:pb-12 sm:pt-10 lg:px-8 lg:pb-14 lg:pt-12">
+      <div className="mx-auto max-w-7xl px-4 pb-10 pt-8 sm:px-6 sm:pb-12 sm:pt-10 lg:px-8 lg:pb-14 lg:pt-12 2xl:max-w-400">
         {/* Line 1 */}
-        <h1 className="animate-hero-fade-in font-heading text-[clamp(3.2rem,9vw,7.5rem)] leading-[0.92] tracking-[-0.03em] text-[#1A1A2E]">
+        <h1 className="animate-hero-fade-in font-heading text-[clamp(3.2rem,9vw,9rem)] leading-[0.92] tracking-[-0.03em] text-[#1A1A2E]">
           Style,
         </h1>
 
         {/* Line 2: headline */}
-        <span className="animate-hero-fade-in block font-heading text-[clamp(3.2rem,9vw,7.5rem)] leading-[0.92] tracking-[-0.03em] text-[#1A1A2E] [animation-delay:80ms]">
+        <span className="animate-hero-fade-in block font-heading text-[clamp(3.2rem,9vw,9rem)] leading-[0.92] tracking-[-0.03em] text-[#1A1A2E] [animation-delay:80ms]">
           Essentialized.
         </span>
 
         {/* Tagline + CTA on same line */}
-        <div className="animate-hero-fade-in mt-5 flex items-center justify-between gap-4 sm:mt-6 [animation-delay:140ms]">
-          <p className="text-body-md text-gray-600">
+        <div className="animate-hero-fade-in mt-5 flex flex-col gap-3 sm:mt-6 sm:flex-row sm:items-center sm:justify-between sm:gap-4 [animation-delay:140ms]">
+          <p className="text-body-sm text-gray-600 sm:text-body-md">
             The toolkit for your life. From the gear you carry to the clothes you wear.
           </p>
           <Button
@@ -55,13 +55,13 @@ export function HeroSection({ products }: HeroSectionProps) {
             alt="Flowing orange fabric"
             fill
             priority
-            sizes="(max-width: 768px) 100vw, 1280px"
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 100vw, 1280px"
             className="object-cover"
           />
 
           {/* Mini product cards */}
           {topRated.length > 0 && (
-            <div className="absolute bottom-3 right-3 flex items-end gap-2.5 sm:bottom-5 sm:right-5 sm:gap-3.5 lg:bottom-6 lg:right-6 lg:gap-4">
+            <div className="absolute bottom-5 left-5 hidden items-end gap-3.5 sm:flex lg:bottom-6 lg:left-6 lg:gap-4">
               {topRated.map((product, i) => (
                 <Link
                   key={product.id}

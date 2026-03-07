@@ -343,7 +343,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Mini card preview  */}
-            <div className="mx-auto mt-4 w-full max-w-85">
+            <div className="mx-auto mt-4 w-full max-w-sm">
               <div className="aspect-[1.586/1] rounded-xl bg-linear-to-br from-gray-800 to-gray-950 p-4 text-white shadow-lg sm:p-5">
                 <div className="flex items-center justify-between">
                   <CreditCard className="size-6 text-gray-400" />
