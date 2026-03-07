@@ -9,7 +9,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CreditCard, Lock } from 'lucide-react';
+import { CreditCard, Lock, Truck, ShoppingBag } from 'lucide-react';
 import { checkoutSchema, type CheckoutFormData } from '@/types/checkout';
 import { useCart } from '@/context/CartContext';
 import { formatCurrency, cn } from '@/lib/utils';
@@ -86,6 +86,7 @@ export default function CheckoutPage() {
     return (
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <EmptyState
+          icon={ShoppingBag}
           title="Nothing to checkout"
           description="Your cart is empty. Add some products before checking out."
           action={
@@ -112,9 +113,12 @@ export default function CheckoutPage() {
         >
           {/* ── Shipping Information ── */}
           <div className="rounded-2xl border border-gray-100 bg-gray-50/50 p-6">
-            <h2 className="font-heading text-heading text-gray-900">
-              Shipping Information
-            </h2>
+            <div className="flex items-center justify-between">
+              <h2 className="font-heading text-heading text-gray-900">
+                Shipping Information
+              </h2>
+              <Truck className="size-5 text-gray-400" aria-hidden="true" />
+            </div>
 
             <div className="mt-6 space-y-5">
               <div className="grid gap-5 sm:grid-cols-2">

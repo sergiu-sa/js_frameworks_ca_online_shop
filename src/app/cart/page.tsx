@@ -3,6 +3,7 @@
 'use client';
 
 import Link from 'next/link';
+import { ShoppingCart, ShoppingBag } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { CartItem } from '@/components/cart/CartItem';
 import { CartSummary } from '@/components/cart/CartSummary';
@@ -16,6 +17,7 @@ export default function CartPage() {
     return (
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <EmptyState
+          icon={ShoppingBag}
           title="Your cart is empty"
           description="Looks like you haven't added anything to your cart yet."
           action={
@@ -30,7 +32,8 @@ export default function CartPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <h1 className="font-heading text-2xl text-gray-900 sm:text-display">
+      <h1 className="flex items-center gap-3 font-heading text-2xl text-gray-900 sm:text-display">
+        <ShoppingCart className="size-7 text-brand" aria-hidden="true" />
         Shopping Cart
       </h1>
 

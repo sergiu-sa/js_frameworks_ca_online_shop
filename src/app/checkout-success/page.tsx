@@ -3,7 +3,7 @@
 'use client';
 
 import Link from 'next/link';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function CheckoutSuccessPage() {
@@ -18,7 +18,10 @@ export default function CheckoutSuccessPage() {
         Thank you for your purchase. Your order has been placed successfully.
       </p>
       <Button asChild size="lg" className="mt-8 bg-brand text-white hover:bg-brand-hover">
-        <Link href="/">Continue Shopping</Link>
+        <Link href="/" className="flex items-center gap-2">
+          Continue Shopping
+          <ArrowRight className="size-4" aria-hidden="true" />
+        </Link>
       </Button>
       </div>
     </div>

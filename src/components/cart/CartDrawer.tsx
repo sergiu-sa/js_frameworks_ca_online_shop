@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { X, ShoppingCart } from 'lucide-react';
+import { X, ShoppingCart, ArrowRight } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   Sheet,
@@ -124,6 +124,7 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
                 className="w-full bg-brand text-white hover:bg-brand-hover"
               >
                 Checkout
+                <ArrowRight className="ml-2 size-4" aria-hidden="true" />
               </Button>
               <Button
                 variant="outline"
@@ -131,7 +132,8 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
                 className="w-full"
                 asChild
               >
-                <Link href="/cart" onClick={() => onOpenChange(false)}>
+                <Link href="/cart" onClick={() => onOpenChange(false)} className="flex items-center justify-center gap-2">
+                  <ShoppingCart className="size-4" aria-hidden="true" />
                   View Full Cart
                 </Link>
               </Button>

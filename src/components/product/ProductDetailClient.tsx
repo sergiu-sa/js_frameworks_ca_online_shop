@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Minus, Plus } from 'lucide-react';
+import { Minus, Plus, ShoppingCart, ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Tag } from '@/components/ui/Tag';
@@ -124,6 +124,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                 size="lg"
                 className="flex-1 bg-brand text-white hover:bg-brand-hover"
               >
+                <ShoppingCart className="mr-2 size-4" aria-hidden="true" />
                 Add to Cart
               </Button>
             </div>
@@ -134,6 +135,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
               className="w-full"
               onClick={() => router.push('/')}
             >
+              <ArrowLeft className="mr-2 size-4" aria-hidden="true" />
               Back to Products
             </Button>
             {quantityInCart > 0 && (

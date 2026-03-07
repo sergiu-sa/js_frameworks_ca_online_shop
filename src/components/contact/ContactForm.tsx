@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, Send } from 'lucide-react';
 import { contactSchema, type ContactFormData } from '@/types/contact';
 import { cn } from '@/lib/utils';
 import { INPUT_STYLES } from '@/lib/constants';
@@ -164,6 +164,7 @@ export function ContactForm() {
         size="lg"
         className="w-full bg-brand text-white hover:bg-brand-hover"
       >
+        <Send className="mr-2 size-4" aria-hidden="true" />
         Send Message
       </Button>
     </form>

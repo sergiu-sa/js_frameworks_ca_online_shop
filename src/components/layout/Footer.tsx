@@ -1,7 +1,7 @@
 // Site footer 
 
 import Link from 'next/link';
-import { Mail, MapPin } from 'lucide-react';
+import { Mail, MapPin, Phone, Home, MessageSquare, ShoppingCart } from 'lucide-react';
 
 export function Footer() {
   return (
@@ -24,20 +24,23 @@ export function Footer() {
             <nav aria-label="Footer" className="mt-3 flex flex-col gap-2">
               <Link
                 href="/"
-                className="text-body-sm text-gray-500 transition-colors hover:text-brand"
+                className="flex items-center gap-2 text-body-sm text-gray-500 transition-colors hover:text-brand"
               >
+                <Home className="size-3.5" aria-hidden="true" />
                 Home
               </Link>
               <Link
                 href="/contact"
-                className="text-body-sm text-gray-500 transition-colors hover:text-brand"
+                className="flex items-center gap-2 text-body-sm text-gray-500 transition-colors hover:text-brand"
               >
+                <MessageSquare className="size-3.5" aria-hidden="true" />
                 Contact
               </Link>
               <Link
                 href="/cart"
-                className="text-body-sm text-gray-500 transition-colors hover:text-brand"
+                className="flex items-center gap-2 text-body-sm text-gray-500 transition-colors hover:text-brand"
               >
+                <ShoppingCart className="size-3.5" aria-hidden="true" />
                 Cart
               </Link>
             </nav>
@@ -55,7 +58,13 @@ export function Footer() {
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <MapPin className="size-4 text-gray-400" />
+                <Phone className="size-4 text-gray-400" aria-hidden="true" />
+                <span className="text-body-sm text-gray-500">
+                  +47 123 45 678
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin className="size-4 text-gray-400" aria-hidden="true" />
                 <span className="text-body-sm text-gray-500">
                   Oslo, Norway
                 </span>
