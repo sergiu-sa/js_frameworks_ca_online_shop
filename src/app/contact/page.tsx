@@ -50,7 +50,7 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-gray-100 bg-gray-50/50 p-6">
+        <div className="rounded-2xl border border-gray-100 bg-white/70 p-6">
           <ContactForm />
         </div>
       </div>

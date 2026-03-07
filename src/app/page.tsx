@@ -1,6 +1,7 @@
-// Homepage 
+// Homepage
 
 import { getAllProducts } from '@/lib/api';
+import { HeroSection } from '@/components/home/HeroSection';
 import { HomepageClient } from '@/components/search/HomepageClient';
 
 export default async function Home() {
@@ -28,11 +29,14 @@ export default async function Home() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <h1 className="mb-8 font-heading text-2xl text-gray-900 sm:text-display">
-        Discover Our Products
-      </h1>
-      <HomepageClient products={products} />
-    </div>
+    <>
+      <HeroSection products={products} />
+      <div id="products" className="scroll-mt-20 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <h2 className="mb-8 font-heading text-2xl text-gray-900 sm:text-display">
+          Discover Our Products
+        </h2>
+        <HomepageClient products={products} />
+      </div>
+    </>
   );
 }

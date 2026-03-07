@@ -112,7 +112,7 @@ export default function CheckoutPage() {
           className="space-y-6 lg:col-span-2"
         >
           {/* ── Shipping Information ── */}
-          <div className="rounded-2xl border border-gray-100 bg-gray-50/50 p-6">
+          <div className="rounded-2xl border border-gray-100 bg-white/70 p-6">
             <div className="flex items-center justify-between">
               <h2 className="font-heading text-heading text-gray-900">
                 Shipping Information
@@ -331,7 +331,7 @@ export default function CheckoutPage() {
           </div>
 
           {/* Payment Information */}
-          <div className="rounded-2xl border border-gray-100 bg-gray-50/50 p-6">
+          <div className="rounded-2xl border border-gray-100 bg-white/70 p-6">
             <div className="flex items-center justify-between">
               <h2 className="font-heading text-heading text-gray-900">
                 Payment
@@ -534,7 +534,7 @@ export default function CheckoutPage() {
 
         {/* Order Summary */}
         <div>
-          <div className="rounded-2xl border border-gray-100 bg-gray-50/50 p-6 lg:sticky lg:top-24">
+          <div className="rounded-2xl border border-gray-100 bg-white/70 p-6 lg:sticky lg:top-24">
             <h2 className="font-heading text-heading text-gray-900">
               Order Summary
             </h2>

@@ -76,7 +76,7 @@ export function HomepageClient({ products }: HomepageClientProps) {
 
   return (
     <>
-      <div className="relative mb-10 rounded-2xl border border-gray-100 bg-gray-50/50 p-4">
+      <div className="relative mb-10 rounded-2xl border border-gray-100 bg-white/70 p-4">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <div className="relative flex-1">
             <SearchBar query={query} onQueryChange={handleQueryChange} />
@@ -110,7 +110,7 @@ export function HomepageClient({ products }: HomepageClientProps) {
         </div>
       )}
 
-      <div className="rounded-2xl border border-gray-100 bg-gray-50/50 p-4">
+      <div className="rounded-2xl border border-gray-100 bg-white/70 p-4">
         {isSearching && displayedProducts.length === 0 ? (
           <EmptyState
             title="No products found"

@@ -5,7 +5,7 @@ import { Mail, MapPin, Phone, Home, MessageSquare, ShoppingCart } from 'lucide-r
 
 export function Footer() {
   return (
-    <footer className="border-t border-gray-200 bg-gray-50">
+    <footer className="border-t border-gray-200/60 bg-[#f5f2ed]">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="grid gap-8 sm:grid-cols-3">
           <div>

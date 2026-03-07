@@ -7,7 +7,7 @@ export default function ProductDetailLoading() {
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="grid gap-8 md:grid-cols-2 lg:gap-12">
         <Skeleton className="aspect-square w-full rounded-lg" />
-        <div className="flex flex-col gap-6 rounded-2xl border border-gray-100 bg-gray-50/50 p-6">
+        <div className="flex flex-col gap-6 rounded-2xl border border-gray-100 bg-white/70 p-6">
           <div>
             <Skeleton className="h-9 w-3/4" />
             <Skeleton className="mt-3 h-5 w-28" />
