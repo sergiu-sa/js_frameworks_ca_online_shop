@@ -26,6 +26,7 @@ A fully functional e-commerce application built with Next.js 16, TypeScript, and
 - **Icons:** Lucide React
 - **Forms:** React Hook Form + Zod validation
 - **Notifications:** Sonner toast
+- **Testing:** Vitest
 - **Deployment:** Vercel
 
 ## Getting Started
@@ -54,6 +55,16 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ```bash
 npm run build
 npm run start
+```
+
+### Testing
+
+Unit tests cover the cart reducer, cart persistence, the API client's
+error handling, and the form validation schemas.
+
+```bash
+npm test          # run once
+npm run test:watch # watch mode
 ```
 
 ## API
