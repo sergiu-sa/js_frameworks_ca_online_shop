@@ -9,9 +9,14 @@ import {
   useSyncExternalStore,
   type ReactNode,
 } from 'react';
-import type { CartItem, CartState, CartAction } from '@/types/cart';
-
-const STORAGE_KEY = 'ecom-cart';
+import type { CartItem } from '@/types/cart';
+import {
+  cartReducer,
+  initialCartState,
+  getTotalItems,
+  getTotalPrice,
+} from './cartReducer';
+import { loadCart, saveCart } from '@/lib/cart-storage';
 
 // --- SSR hydration guard ---
 const subscribe = () => () => {};
@@ -20,51 +25,6 @@ const getServerSnapshot = () => false;
 
 function useMounted(): boolean {
   return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-}
-
-// --- Cart reducer ---
-function cartReducer(state: CartState, action: CartAction): CartState {
-  switch (action.type) {
-    case 'ADD_ITEM': {
-      const existing = state.items.find(
-        (item) => item.id === action.payload.id
-      );
-      if (existing) {
-        return {
-          items: state.items.map((item) =>
-            item.id === action.payload.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
-          ),
-        };
-      }
-      return { items: [...state.items, { ...action.payload, quantity: 1 }] };
-    }
-    case 'REMOVE_ITEM':
-      return {
-        items: state.items.filter((item) => item.id !== action.payload.id),
-      };
-    case 'UPDATE_QUANTITY': {
-      if (action.payload.quantity <= 0) {
-        return {
-          items: state.items.filter((item) => item.id !== action.payload.id),
-        };
-      }
-      return {
-        items: state.items.map((item) =>
-          item.id === action.payload.id
-            ? { ...item, quantity: action.payload.quantity }
-            : item
-        ),
-      };
-    }
-    case 'CLEAR_CART':
-      return { items: [] };
-    case 'HYDRATE':
-      return { items: action.payload };
-    default:
-      return state;
-  }
 }
 
 interface CartContextValue {
@@ -87,38 +47,23 @@ interface CartContextValue {
 const CartContext = createContext<CartContextValue | null>(null);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(cartReducer, { items: [] });
+  const [state, dispatch] = useReducer(cartReducer, initialCartState);
   const mounted = useMounted();
 
-  // Hydrate from localStorage on mount
+  // Hydrate from localStorage on mount (validated inside loadCart)
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored) as CartItem[];
-        dispatch({ type: 'HYDRATE', payload: parsed });
-      }
-    } catch {
-      // Ignore corrupted data
-    }
+    dispatch({ type: 'HYDRATE', payload: loadCart() });
   }, []);
 
   // Persist to localStorage on changes
   useEffect(() => {
     if (mounted) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.items));
+      saveCart(state.items);
     }
   }, [state.items, mounted]);
 
-  const totalItems = state.items.reduce(
-    (sum, item) => sum + item.quantity,
-    0
-  );
-
-  const totalPrice = state.items.reduce(
-    (sum, item) => sum + item.discountedPrice * item.quantity,
-    0
-  );
+  const totalItems = getTotalItems(state.items);
+  const totalPrice = getTotalPrice(state.items);
 
   function addItem(product: {
     id: string;

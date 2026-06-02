@@ -5,33 +5,17 @@ import { HeroSection } from '@/components/home/HeroSection';
 import { HomepageClient } from '@/components/search/HomepageClient';
 
 export default async function Home() {
-  let products = null;
-
-  try {
-    products = await getAllProducts();
-  } catch {
-    // API request failed
-  }
-
-  if (!products) {
-    return (
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="rounded-lg border border-error/50 bg-error/10 p-6 text-center">
-          <h2 className="text-heading-sm font-semibold text-gray-900">
-            Something went wrong
-          </h2>
-          <p className="mt-2 text-body-sm text-gray-500">
-            Failed to load products. Please try again later.
-          </p>
-        </div>
-      </div>
-    );
-  }
+  // A failed fetch throws and is handled by error.tsx, which shows a clear
+  // message and a Retry button instead of a silently swallowed error.
+  const products = await getAllProducts();
 
   return (
     <>
       <HeroSection products={products} />
-      <div id="products" className="scroll-mt-20 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div
+        id="products"
+        className="scroll-mt-20 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8"
+      >
         <h2 className="mb-8 font-heading text-2xl text-gray-900 sm:text-display">
           Discover Our Products
         </h2>

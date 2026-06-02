@@ -1,29 +1,34 @@
-// API client functions for fetching product data from Noroff Online Shop API
+// API client for the Noroff Online Shop API.
+// Each function is wrapped in React's cache() so repeat calls within a single
+// render (e.g. generateMetadata + the page body) share one request.
+
+import { cache } from 'react';
 import { API_BASE_URL } from './constants';
-import type { Product, ApiResponse } from '@/types/product';
+import { request } from './http';
+import {
+  productSchema,
+  productsSchema,
+  apiResponseSchema,
+  type Product,
+} from '@/types/product';
 
-export async function getAllProducts(): Promise<Product[]> {
-  const response = await fetch(`${API_BASE_URL}/online-shop`, {
-    next: { revalidate: 60 },
-  });
+const productsResponseSchema = apiResponseSchema(productsSchema);
+const productResponseSchema = apiResponseSchema(productSchema);
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch products: ${response.status}`);
-  }
+export const getAllProducts = cache(async (): Promise<Product[]> => {
+  const { data } = await request(
+    `${API_BASE_URL}/online-shop`,
+    productsResponseSchema,
+    { revalidate: 60 }
+  );
+  return data;
+});
 
-  const json: ApiResponse<Product[]> = await response.json();
-  return json.data;
-}
-
-export async function getProductById(id: string): Promise<Product> {
-  const response = await fetch(`${API_BASE_URL}/online-shop/${id}`, {
-    next: { revalidate: 60 },
-  });
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch product: ${response.status}`);
-  }
-
-  const json: ApiResponse<Product> = await response.json();
-  return json.data;
-}
+export const getProductById = cache(async (id: string): Promise<Product> => {
+  const { data } = await request(
+    `${API_BASE_URL}/online-shop/${id}`,
+    productResponseSchema,
+    { revalidate: 60 }
+  );
+  return data;
+});

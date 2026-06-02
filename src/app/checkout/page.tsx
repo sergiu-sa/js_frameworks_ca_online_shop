@@ -42,7 +42,7 @@ function formatExpiry(value: string): string {
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { items, totalItems, totalPrice, clearCart } = useCart();
+  const { items, totalItems, totalPrice } = useCart();
   const [cardDisplay, setCardDisplay] = useState('');
   const [expiryDisplay, setExpiryDisplay] = useState('');
   const [nameDisplay, setNameDisplay] = useState('');
@@ -57,13 +57,16 @@ export default function CheckoutPage() {
     mode: 'onBlur',
   });
 
+  // Navigate first; the cart is cleared on the success page once we know the
+  // transition actually happened, so a failed route never empties the cart.
   function onSubmit(): void {
-    clearCart();
     router.push('/checkout-success');
   }
 
   // Card number formatting handler
-  function handleCardNumberChange(e: React.ChangeEvent<HTMLInputElement>): void {
+  function handleCardNumberChange(
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void {
     const formatted = formatCardNumber(e.target.value);
     setCardDisplay(formatted);
     setValue('cardNumber', formatted, { shouldValidate: false });
@@ -75,7 +78,6 @@ export default function CheckoutPage() {
     setExpiryDisplay(formatted);
     setValue('cardExpiry', formatted, { shouldValidate: false });
   }
-
 
   register('cardNumber');
   register('cardExpiry');
@@ -90,7 +92,10 @@ export default function CheckoutPage() {
           title="Nothing to checkout"
           description="Your cart is empty. Add some products before checking out."
           action={
-            <Button asChild className="bg-brand text-white hover:bg-brand-hover">
+            <Button
+              asChild
+              className="bg-brand text-white hover:bg-brand-hover"
+            >
               <Link href="/">Browse Products</Link>
             </Button>
           }
@@ -243,10 +248,7 @@ export default function CheckoutPage() {
                     {...register('city')}
                   />
                   {errors.city && (
-                    <p
-                      id="city-error"
-                      className="mt-1 text-body-sm text-error"
-                    >
+                    <p id="city-error" className="mt-1 text-body-sm text-error">
                       {errors.city.message}
                     </p>
                   )}
@@ -352,17 +354,22 @@ export default function CheckoutPage() {
                   </span>
                 </div>
                 <p className="mt-4 font-mono text-body-sm tracking-[0.15em] sm:text-body sm:tracking-[0.2em]">
-                  {cardDisplay || '\u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022'}
+                  {cardDisplay ||
+                    '\u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022 \u2022\u2022\u2022\u2022'}
                 </p>
                 <div className="mt-3 flex items-end justify-between">
                   <div>
-                    <p className="text-[10px] uppercase text-gray-400">Cardholder</p>
+                    <p className="text-[10px] uppercase text-gray-400">
+                      Cardholder
+                    </p>
                     <p className="mt-0.5 truncate text-caption font-medium">
                       {nameDisplay || 'Your Name'}
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-[10px] uppercase text-gray-400">Expires</p>
+                    <p className="text-[10px] uppercase text-gray-400">
+                      Expires
+                    </p>
                     <p className="mt-0.5 text-caption font-medium">
                       {expiryDisplay || 'MM/YY'}
                     </p>
@@ -421,7 +428,11 @@ export default function CheckoutPage() {
                     placeholder="1234 5678 9012 3456"
                     value={cardDisplay}
                     onChange={handleCardNumberChange}
-                    onBlur={() => setValue('cardNumber', cardDisplay, { shouldValidate: true })}
+                    onBlur={() =>
+                      setValue('cardNumber', cardDisplay, {
+                        shouldValidate: true,
+                      })
+                    }
                     aria-invalid={!!errors.cardNumber}
                     {...(errors.cardNumber && {
                       'aria-describedby': 'cardNumber-error',
@@ -464,7 +475,11 @@ export default function CheckoutPage() {
                     placeholder="MM/YY"
                     value={expiryDisplay}
                     onChange={handleExpiryChange}
-                    onBlur={() => setValue('cardExpiry', expiryDisplay, { shouldValidate: true })}
+                    onBlur={() =>
+                      setValue('cardExpiry', expiryDisplay, {
+                        shouldValidate: true,
+                      })
+                    }
                     aria-invalid={!!errors.cardExpiry}
                     {...(errors.cardExpiry && {
                       'aria-describedby': 'cardExpiry-error',

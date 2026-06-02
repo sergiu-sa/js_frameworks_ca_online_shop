@@ -1,38 +1,40 @@
 // --- Product data model ---
+// Schemas double as runtime validation for API responses; the TypeScript
+// types are inferred from them so the two can never drift apart.
 
-export interface ProductImage {
-  url: string;
-  alt: string;
-}
+import { z } from 'zod';
 
-export interface Review {
-  id: string;
-  username: string;
-  rating: number;
-  description: string;
-}
+export const productImageSchema = z.object({
+  url: z.string(),
+  alt: z.string(),
+});
 
-export interface Product {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  discountedPrice: number;
-  image: ProductImage;
-  rating: number;
-  tags: string[];
-  reviews: Review[];
-}
+export const reviewSchema = z.object({
+  id: z.string(),
+  username: z.string(),
+  rating: z.number(),
+  description: z.string(),
+});
 
-export interface ApiResponse<T> {
-  data: T;
-  meta: {
-    isFirstPage: boolean;
-    isLastPage: boolean;
-    currentPage: number;
-    previousPage: number | null;
-    nextPage: number | null;
-    pageCount: number;
-    totalCount: number;
-  };
+export const productSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  description: z.string(),
+  price: z.number(),
+  discountedPrice: z.number(),
+  image: productImageSchema,
+  rating: z.number(),
+  tags: z.array(z.string()),
+  reviews: z.array(reviewSchema),
+});
+
+export const productsSchema = z.array(productSchema);
+
+export type ProductImage = z.infer<typeof productImageSchema>;
+export type Review = z.infer<typeof reviewSchema>;
+export type Product = z.infer<typeof productSchema>;
+
+// Wraps a data schema in the Noroff API's `{ data, meta }` envelope.
+export function apiResponseSchema<T extends z.ZodTypeAny>(data: T) {
+  return z.object({ data });
 }

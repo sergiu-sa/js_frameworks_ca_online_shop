@@ -1,20 +1,27 @@
 /**
  * Cart state types
  * CartItem holds product snapshot data needed for display and price calculation.
+ * The schema is also used to validate cart data restored from localStorage.
  * CartAction is a discriminated union of all reducer action types.
  */
 
-export interface CartItem {
-  id: string;
-  title: string;
-  price: number;
-  discountedPrice: number;
-  image: {
-    url: string;
-    alt: string;
-  };
-  quantity: number;
-}
+import { z } from 'zod';
+
+export const cartItemSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  price: z.number(),
+  discountedPrice: z.number(),
+  image: z.object({
+    url: z.string(),
+    alt: z.string(),
+  }),
+  quantity: z.number().int().positive(),
+});
+
+export const cartItemsSchema = z.array(cartItemSchema);
+
+export type CartItem = z.infer<typeof cartItemSchema>;
 
 export interface CartState {
   items: CartItem[];

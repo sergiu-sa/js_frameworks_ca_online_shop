@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { useDebounce } from '@/hooks/useDebounce';
 import { useSearch } from '@/hooks/useSearch';
 import { SearchBar } from '@/components/search/SearchBar';
 import { SearchResults } from '@/components/search/SearchResults';
@@ -43,10 +44,16 @@ export function HomepageClient({ products }: HomepageClientProps) {
   const [showDropdown, setShowDropdown] = useState(false);
   const resultsRef = useRef<HTMLDivElement>(null);
 
-  const results = useSearch(products, query);
-  const isSearching = query.length >= 1;
+  // Debounce the query that drives filtering so we don't recompute results on
+  // every keystroke; the input itself stays controlled by `query` for responsiveness.
+  const debouncedQuery = useDebounce(query, 300);
+  const results = useSearch(products, debouncedQuery);
+  const isSearching = debouncedQuery.length >= 1;
   const filtered = isSearching ? results : products;
-  const displayedProducts = useMemo(() => sortProducts(filtered, sort), [filtered, sort]);
+  const displayedProducts = useMemo(
+    () => sortProducts(filtered, sort),
+    [filtered, sort]
+  );
 
   function handleQueryChange(value: string): void {
     setQuery(value);
@@ -82,7 +89,7 @@ export function HomepageClient({ products }: HomepageClientProps) {
             <SearchBar query={query} onQueryChange={handleQueryChange} />
             <SearchResults
               results={results}
-              query={query}
+              query={debouncedQuery}
               onSelect={handleSelect}
               onViewAll={handleViewAll}
               visible={showDropdown}
@@ -94,10 +101,13 @@ export function HomepageClient({ products }: HomepageClientProps) {
       </div>
 
       {isSearching && (
-        <div ref={resultsRef} className="mb-4 flex items-center justify-between">
+        <div
+          ref={resultsRef}
+          className="mb-4 flex items-center justify-between"
+        >
           <p className="text-body-sm text-gray-500">
             {results.length} {results.length === 1 ? 'result' : 'results'} for
-            &ldquo;{query}&rdquo;
+            &ldquo;{debouncedQuery}&rdquo;
           </p>
           <Button
             variant="ghost"
@@ -114,7 +124,7 @@ export function HomepageClient({ products }: HomepageClientProps) {
         {isSearching && displayedProducts.length === 0 ? (
           <EmptyState
             title="No products found"
-            description={`We couldn\u2019t find any products matching \u201c${query}\u201d. Try a different search term.`}
+            description={`We couldn\u2019t find any products matching \u201c${debouncedQuery}\u201d. Try a different search term.`}
             action={
               <Button
                 onClick={handleClearSearch}
